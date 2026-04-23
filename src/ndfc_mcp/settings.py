@@ -21,7 +21,7 @@ class Settings(BaseSettings):
 
     # HTTP server (only used when transport="http")
     host: str = "0.0.0.0"
-    port: int = 8000
+    port: int = 9007
 
     # SSH defaults (for ssh_exec / ssh_bulk tools)
     ssh_username: str = ""
