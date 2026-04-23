@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ndfc-mcp"
+version = "0.1.0"
+description = "MCP server for Cisco Nexus Dashboard Fabric Controller (NDFC)"
+requires-python = ">=3.11"
+dependencies = [
+    "fastmcp>=2.0",
+    "httpx>=0.27",
+    "pydantic>=2.7",
+    "pydantic-settings>=2.3",
+    "asyncssh>=2.14",     # for ssh_exec / ssh_bulk
+    "uvicorn>=0.30",      # for HTTP transport mode
+]
+
+[project.scripts]
+ndfc-mcp = "ndfc_mcp.server:mcp"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ndfc_mcp"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
