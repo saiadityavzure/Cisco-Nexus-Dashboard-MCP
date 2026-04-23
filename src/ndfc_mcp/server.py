@@ -17,10 +17,15 @@ from .tools import (
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-mcp = FastMCP(
-    name="ndfc-mcp",
-    description="MCP server for Cisco Nexus Dashboard Fabric Controller (NDFC)",
-)
+try:
+    # Newer FastMCP versions accept description.
+    mcp = FastMCP(
+        name="ndfc-mcp",
+        description="MCP server for Cisco Nexus Dashboard Fabric Controller (NDFC)",
+    )
+except TypeError:
+    # Older FastMCP versions accept only name.
+    mcp = FastMCP(name="ndfc-mcp")
 
 # Register all tool groups
 connection.register_tools(mcp)

@@ -8,7 +8,7 @@ from typing import Any
 
 import httpx
 from mcp.server.fastmcp import FastMCP
-from mcp.types import ToolError
+from mcp.server.fastmcp.exceptions import ToolError
 
 from ..types import ResourceDict, ResourceList
 from .dependencies import get_ndfc_client_dep

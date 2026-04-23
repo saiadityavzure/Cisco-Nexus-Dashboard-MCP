@@ -9,7 +9,7 @@ import asyncio
 import logging
 import unicodedata
 
-from mcp.types import ToolError
+from mcp.server.fastmcp.exceptions import ToolError
 
 from ..ndfc_client import NDFCClient, get_ndfc_client
 
