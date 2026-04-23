@@ -1,6 +1,7 @@
 import logging
 
 from mcp.server.fastmcp import FastMCP
+from mcp.server.transport_security import TransportSecuritySettings
 
 from .settings import settings
 from .tools import (
@@ -17,15 +18,28 @@ from .tools import (
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+transport_security = TransportSecuritySettings(
+    enable_dns_rebinding_protection=settings.enable_dns_rebinding_protection,
+    allowed_hosts=settings.allowed_hosts_list,
+    allowed_origins=settings.allowed_origins_list,
+)
+
 try:
-    # Newer FastMCP versions accept description.
+    # Newer FastMCP versions accept description and transport security settings.
     mcp = FastMCP(
         name="ndfc-mcp",
         description="MCP server for Cisco Nexus Dashboard Fabric Controller (NDFC)",
+        transport_security=transport_security,
     )
 except TypeError:
-    # Older FastMCP versions accept only name.
-    mcp = FastMCP(name="ndfc-mcp")
+    # Older FastMCP versions accept only name/description.
+    try:
+        mcp = FastMCP(
+            name="ndfc-mcp",
+            description="MCP server for Cisco Nexus Dashboard Fabric Controller (NDFC)",
+        )
+    except TypeError:
+        mcp = FastMCP(name="ndfc-mcp")
 
 # Register all tool groups
 connection.register_tools(mcp)
