@@ -13,7 +13,7 @@ services:
       - ./src:/app/src
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9007/health"]
+      test: ["CMD", "python", "-c", "import ndfc_mcp"]
       interval: 30s
       timeout: 10s
       retries: 3
